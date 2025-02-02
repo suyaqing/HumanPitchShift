@@ -2,9 +2,9 @@
 % curves
 clear
 savepath = 'D:\Pitch adaptation\test\';
-GLMMdata = savepath + "MaxiGLMMNoCB_RandIntSubj_ALLSUB.mat";
-Sigmoidfit = 'taskC_sigmoid_fit.mat';
-file_CENT = savepath + "PARAMETERS_CENT.mat";
+GLMMdata = savepath + "MaxiGLMM_RandIntSubj.mat";
+Sigmoidfit = 'taskC_sigmoid_fit_newWin.mat';
+file_CENT = savepath + "PARAMETERS_CENT_newOn.mat";
 file_var = savepath + "variables.mat";
 load(file_CENT)
 load(file_var)
@@ -22,11 +22,12 @@ col_A = [0 0.4470 0.7410];
 col_B = [[0 0.4470 0.7410];[0.4940 0.1840 0.5560];]; 
 col_CB = [[0.4940 0.1840 0.5560];[0 0.4470 0.7410];[0.3010 0.7450 0.9330];[0.4660 0.6740 0.1880];[0.9290 0.6940 0.1250];[0.8500 0.3250 0.0980];[0.6350 0.0780 0.1840];]; %RGB color code, nice for 7 shifts.
 fmt = '%.2e';
+offset = 0;
 %%
-glms_stable = glms(offset+81:end);
+glms_stable = glms(offset+51:offset+130);
 T = length(glms_stable);
 % tt = ([1:T]-(100-offset))/100 - 1/100; tt = tt(:);
-Nparam = 5;
+Nparam = 11;
 %nsub = length(stats_all_sub);
 % taskB_ini = zeros(2, nsub); taskB_stab = zeros(2, nsub);
 % taskCA_ini = zeros(2, nsub); taskCA_stab = zeros(2, nsub);
@@ -55,7 +56,7 @@ end
 subj_idx = str2double(table2array(BNames(:, 2)));
 rand_interc = rand_interc';
 betas = coefs_all';
-indT = (100+80)+(1:T);
+indT = (100+50)+(1:T); % note there's a 100ms offset in data
 pA = nan(nsubj, 1); pB = nan(nsubj, 2);
 % pCA = nan(nsubj, 2); pCB = nan(nsubj, 2, 6);
 for s = 1:nsubj
